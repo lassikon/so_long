@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:01:27 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/12 20:28:37 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:32:51 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	perror_n_exit(t_game *game, char *error_msg)
 	exit(1);
 }
 
-/* void	mlx_error(t_game *game, char *error_msg)
+void	mlx42_error(t_game *game, const char *error_msg)
 {
 	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(error_msg, 2);
+	ft_putstr_fd((char*)error_msg, 2);
 	ft_putstr_fd("\n", 2);
 	free_memory(game);
 	exit(1);
-} */
+}

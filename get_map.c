@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:44:49 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/12 20:28:57 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:03:00 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,24 @@ static char	*get_map_str(t_game *game, char *file)
 
 static void	get_map_size(t_game *game)
 {
-	int	i;
-	int	j;
+	int	x;
+	int	y;
 
-	i = 0;
-	while (game->map.array[i] != NULL)
+	y = 0;
+	while (game->map.array[y] != NULL)
 	{
-		j = 0;
-		while (game->map.array[i][j] != '\0')
-			j++;
+		x = 0;
+		while (game->map.array[y][x] != '\0')
+			x++;
 		if (game->map.width == 0)
-			game->map.width = j;
-		else if (game->map.width != j)
+			game->map.width = x;
+		else if (game->map.width != x)
 			error_n_exit(game, "Map width is not consistent");
-		i++;
+		y++;
 	}
-	game->map.height = i;
+	game->map.height = y;
+	game->win_width = game->map.width * 32;
+	game->win_height = game->map.height * 32;
 }
 
 void	get_map(t_game *game, char *file)

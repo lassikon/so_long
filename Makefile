@@ -19,10 +19,10 @@ libft:
 	@make -C $(LIBFT_DIR)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	@$(CC) -g $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(MLX42) $(LIBFT) $(HEADERS) -o $(NAME)
+	@$(CC) -g $(OBJS) $(MLX42) $(LIBFT) $(HEADERS) -o $(NAME)
 
 clean:
 	@make -C $(LIBFT_DIR) clean

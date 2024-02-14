@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:58:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/12 20:38:16 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/14 12:57:30 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	check_chars(t_game *game, int i, int j)
 	}
 	else if (game->map.array[i][j] == 'C')
 	{
-		game->map.collectibles += 1;
+		game->map.colls_at_start += 1;
 		return ;
 	}
 	else if (game->map.array[i][j] == 'E')
@@ -87,7 +87,7 @@ static void	check_components(t_game *game)
 		error_n_exit(game, "Map has too many exits");
 	if (game->map.exit < 1)
 		error_n_exit(game, "Map has no exit");
-	if (game->map.collectibles < 1)
+	if (game->map.colls_at_start < 1)
 		error_n_exit(game, "Map has no collectibles");
 }
 
@@ -98,4 +98,5 @@ void	validate_map(t_game *game)
 	check_walls(game);
 	validate_chars(game);
 	check_components(game);
+	game->colls = game->map.colls_at_start;
 }
