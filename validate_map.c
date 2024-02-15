@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:58:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/14 12:57:30 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:07:37 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void	check_chars(t_game *game, int i, int j)
 	else if (game->map.array[i][j] == 'P')
 	{
 		game->map.player += 1;
+		game->player_x = j;
+		game->player_y = i;
 		return ;
 	}
 	else if (game->map.array[i][j] == 'C')

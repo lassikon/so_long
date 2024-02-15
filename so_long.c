@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:51:04 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/14 13:17:09 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:33:46 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	init_struct(t_game *game)
 	game->images.coll = NULL;
 	game->colls = 0;
 	game->steps = 0;
+	game->player_x = 0;
+	game->player_y = 0;
 }
 
 int	main(int argc, char **argv)

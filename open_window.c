@@ -46,7 +46,11 @@ static void	textures_to_images(t_game *game)
 	if (!game->images.exit)
 		mlx42_error(game, mlx_strerror(mlx_errno));
 	game->images.coll = mlx_texture_to_image(game->mlx, game->textures.coll_tex);
-	
+	mlx_delete_texture(game->textures.wall_tex);
+	mlx_delete_texture(game->textures.floor_tex);
+	mlx_delete_texture(game->textures.player_tex);
+	mlx_delete_texture(game->textures.coll_tex);
+	mlx_delete_texture(game->textures.exit_tex);
 }
 
 static void	draw_background(t_game *game)
@@ -56,12 +60,16 @@ static void	draw_background(t_game *game)
 
 	x = 0;
 	y = 0;
-	while (y < game->win_height)
+	return ;
+	while (y < game->map.height)
 	{
-		while (x < game->win_width)
+		while (x < game->map.width)
 		{
-			if (mlx_image_to_window(game->mlx, game->images.floor, x * 32, y * 32) == -1)
-				mlx42_error(game, mlx_strerror(mlx_errno));
+			if (game->map.array[y][x] == '0')
+			{
+				if (mlx_image_to_window(game->mlx, game->images.floor, x * 32, y * 32) == -1)
+					mlx42_error(game, mlx_strerror(mlx_errno));
+			}
 			x++;
 		}
 		x = 0;
@@ -98,24 +106,25 @@ static void	images_to_window(t_game *game)
 	int	x;
 	int	y;
 
-	x = 0;
 	y = 0;
+	return ;
 	draw_background(game);
 	while (y < game->map.height)
 	{
+		x = 0;
 		while (x < game->map.width)
 		{
 			draw_tile(game, x, y);
 			x++;
 		}
-		x = 0;
 		y++;
 	}
 }
 
 void	open_window(t_game *game)
 {
-	game->mlx = mlx_init(game->win_width, game->win_height, "so_long", true);
+	game->mlx = mlx_init(256, 256, "so_long", true);
+	// game->mlx = mlx_init(game->win_width, game->win_height, "so_long", true);
 	if (!game->mlx)
 		mlx42_error(game, mlx_strerror(mlx_errno));;
 	load_textures(game);

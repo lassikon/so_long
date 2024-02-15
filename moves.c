@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:28:12 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/14 12:59:22 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:44:35 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	move_left(t_game *game)
 	else if (game->map.array[game->player_y][game->player_x - 1] == 'E')
 	{
 		if (game->colls == 0)
-			exit(0);
+		{
+			game->steps += 1;
+			mlx_close_window(game->mlx);
+		}
 		else
 			return ;
 	}
@@ -52,6 +55,7 @@ void	move_left(t_game *game)
 	}
 	game->steps += 1;
 	game->images.player->instances[0].x -= 32;
+	printf("Moves: %d\n", game->steps);
 }
 
 void	move_right(t_game *game)
@@ -75,6 +79,7 @@ void	move_right(t_game *game)
 	}
 	game->steps += 1;
 	game->images.player->instances[0].x += 32;
+	printf("Moves: %d\n", game->steps);
 }
 
 void	move_up(t_game *game)
@@ -98,6 +103,7 @@ void	move_up(t_game *game)
 	}
 	game->steps += 1;
 	game->images.player->instances[0].y -= 32;
+	printf("Moves: %d\n", game->steps);
 }
 
 void	move_down(t_game *game)
@@ -107,7 +113,10 @@ void	move_down(t_game *game)
 	else if (game->map.array[game->player_y + 1][game->player_x] == 'E')
 	{
 		if (game->colls == 0)
-			exit(0);
+		{
+			game->steps += 1;
+			mlx_close_window(game->mlx);
+		}
 		else
 			return ;
 	}
@@ -121,4 +130,5 @@ void	move_down(t_game *game)
 	}
 	game->steps += 1;
 	game->images.player->instances[0].y += 32;
+	printf("Moves: %d\n", game->steps);
 }
