@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:51:22 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/16 15:33:36 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:17:59 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,17 @@
 # include "libft/include/libft.h"
 # include "MLX42/include/MLX42/MLX42.h"
 
-# define WALL "textures/lava.png"
-# define FLOOR "textures/lava_floor.png"
-# define PLAYER "textures/chess.png"
-# define COLLECTIBLE "textures/burger.png"
-# define EXIT "textures/wall2.png"
+# define WALL_IMG "textures/wall.png"
+# define FLOOR_IMG "textures/floor.png"
+# define PLAYER_IMG "textures/small_player.png"
+# define COLL_IMG "textures/burger.png"
+# define EXIT_IMG "textures/wall2.png"
 
-# define MOVE 8
+# define MOVE 4
 # define TILE 32
+# define PLAYER 24
+# define OFFSET 4
+
 # define LEFT 0
 # define RIGHT 1
 # define UP 2

@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:28:12 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/16 15:13:28 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:28:02 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	move_left(t_game *game)
 
 void	move_right(t_game *game)
 {
-	if (check_collision(game, game->player_x + TILE, game->player_y, RIGHT))
+	if (check_collision(game, game->player_x + PLAYER, game->player_y, RIGHT))
 		return ;
 	game->player_x += MOVE;
 	game->images.player->instances[0].x = game->player_x;
@@ -50,7 +50,7 @@ void	move_up(t_game *game)
 
 void	move_down(t_game *game)
 {
-	if (check_collision(game, game->player_x, game->player_y + TILE, DOWN))
+	if (check_collision(game, game->player_x, game->player_y + PLAYER, DOWN))
 		return ;
 	game->player_y += MOVE;
 	game->images.player->instances[0].y = game->player_y;
@@ -59,4 +59,3 @@ void	move_down(t_game *game)
 	check_exit(game, game->player_x, game->player_y);
 	printf("Moves: %d\n", game->steps);
 }
-

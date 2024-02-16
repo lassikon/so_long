@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:44:49 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/16 15:34:10 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:47:59 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ static void	get_map_size(t_game *game)
 		y++;
 	}
 	game->map.height = y;
-	game->win_width = game->map.width * 32;
-	game->win_height = game->map.height * 32;
+	game->win_width = game->map.width * TILE;
+	game->win_height = game->map.height * TILE;
 }
 
 void	get_map(t_game *game, char *file)

@@ -14,19 +14,19 @@
 
 static void	load_textures(t_game *game)
 {
-	game->textures.wall_tex = mlx_load_png(WALL);
+	game->textures.wall_tex = mlx_load_png(WALL_IMG);
 	if (!game->textures.wall_tex)
 		mlx42_error(game, mlx_strerror(mlx_errno));
-	game->textures.floor_tex = mlx_load_png(FLOOR);
+	game->textures.floor_tex = mlx_load_png(FLOOR_IMG);
 	if (!game->textures.floor_tex)
 		mlx42_error(game, mlx_strerror(mlx_errno));
-	game->textures.player_tex = mlx_load_png(PLAYER);
+	game->textures.player_tex = mlx_load_png(PLAYER_IMG);
 	if (!game->textures.player_tex)
 		mlx42_error(game, mlx_strerror(mlx_errno));
-	game->textures.coll_tex = mlx_load_png(COLLECTIBLE);
+	game->textures.coll_tex = mlx_load_png(COLL_IMG);
 	if (!game->textures.coll_tex)
 		mlx42_error(game, mlx_strerror(mlx_errno));
-	game->textures.exit_tex = mlx_load_png(EXIT);
+	game->textures.exit_tex = mlx_load_png(EXIT_IMG);
 	if (!game->textures.exit_tex)
 		mlx42_error(game, mlx_strerror(mlx_errno));
 }
@@ -66,7 +66,7 @@ static void	draw_background(t_game *game)
 		{
 			if (game->map.array[y][x] != '1')
 			{
-				if (mlx_image_to_window(game->mlx, game->images.floor, x * 32, y * 32) == -1)
+				if (mlx_image_to_window(game->mlx, game->images.floor, x * TILE, y * TILE) == -1)
 					mlx42_error(game, mlx_strerror(mlx_errno));
 			}
 			x++;
@@ -80,22 +80,22 @@ static void	draw_tile(t_game *game, int x, int y)
 {
 	if (game->map.array[y][x] == '1')
 	{
-		if (mlx_image_to_window(game->mlx, game->images.wall, x * 32, y * 32) == -1)
+		if (mlx_image_to_window(game->mlx, game->images.wall, x * TILE, y * TILE) == -1)
 			mlx42_error(game, mlx_strerror(mlx_errno));
 	}
 	else if (game->map.array[y][x] == 'P')
 	{
-		if (mlx_image_to_window(game->mlx, game->images.player, x * 32, y * 32) == -1)
+		if (mlx_image_to_window(game->mlx, game->images.player, x * TILE + OFFSET, y * TILE + OFFSET) == -1)
 			mlx42_error(game, mlx_strerror(mlx_errno));
 	}
 	else if (game->map.array[y][x] == 'C')
 	{
-		if (mlx_image_to_window(game->mlx, game->images.coll, x * 32, y * 32) == -1)
+		if (mlx_image_to_window(game->mlx, game->images.coll, x * TILE, y * TILE) == -1)
 			mlx42_error(game, mlx_strerror(mlx_errno));
 	}
 	else if (game->map.array[y][x] == 'E')
 	{
-		if (mlx_image_to_window(game->mlx, game->images.exit, x * 32, y * 32) == -1)
+		if (mlx_image_to_window(game->mlx, game->images.exit, x * TILE, y * TILE) == -1)
 			mlx42_error(game, mlx_strerror(mlx_errno));
 	}
 }
