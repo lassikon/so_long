@@ -60,12 +60,11 @@ static void	draw_background(t_game *game)
 
 	x = 0;
 	y = 0;
-	return ;
 	while (y < game->map.height)
 	{
 		while (x < game->map.width)
 		{
-			if (game->map.array[y][x] == '0')
+			if (game->map.array[y][x] != '1')
 			{
 				if (mlx_image_to_window(game->mlx, game->images.floor, x * 32, y * 32) == -1)
 					mlx42_error(game, mlx_strerror(mlx_errno));
@@ -107,7 +106,6 @@ static void	images_to_window(t_game *game)
 	int	y;
 
 	y = 0;
-	return ;
 	draw_background(game);
 	while (y < game->map.height)
 	{
@@ -123,8 +121,7 @@ static void	images_to_window(t_game *game)
 
 void	open_window(t_game *game)
 {
-	game->mlx = mlx_init(256, 256, "so_long", true);
-	// game->mlx = mlx_init(game->win_width, game->win_height, "so_long", true);
+	game->mlx = mlx_init(game->win_width, game->win_height, "so_long", true);
 	if (!game->mlx)
 		mlx42_error(game, mlx_strerror(mlx_errno));;
 	load_textures(game);

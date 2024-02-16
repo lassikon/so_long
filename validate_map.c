@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:58:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/15 16:07:37 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:36:02 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	check_chars(t_game *game, int i, int j)
 	else if (game->map.array[i][j] == 'P')
 	{
 		game->map.player += 1;
-		game->player_x = j;
-		game->player_y = i;
+		game->player_x = j * TILE;
+		game->player_y = i * TILE;
 		return ;
 	}
 	else if (game->map.array[i][j] == 'C')
@@ -100,5 +100,6 @@ void	validate_map(t_game *game)
 	check_walls(game);
 	validate_chars(game);
 	check_components(game);
+	check_path(game);
 	game->colls = game->map.colls_at_start;
 }

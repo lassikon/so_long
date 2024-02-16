@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:51:04 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/15 16:33:46 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:51:07 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	init_struct(t_game *game)
 {
 	game->map.array = NULL;
+	game->map.array_copy = NULL;
 	game->map.width = 0;
 	game->map.height = 0;
 	game->map.fd = -1;
@@ -46,6 +47,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_n_exit(&game, "Error\nInvalid number of arguments");
 	get_map(&game, argv[1]);
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	open_window(&game);
 	mlx_loop_hook(game.mlx, keyhook, &game);
 	mlx_loop(game.mlx);

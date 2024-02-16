@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:44:49 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/13 15:03:00 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:34:10 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,13 @@ static void	get_map_size(t_game *game)
 void	get_map(t_game *game, char *file)
 {
 	char	*map_str;
-	
+
 	map_str = get_map_str(game, file);
 	game->map.array = ft_split(map_str, '\n');
 	if (game->map.array == NULL)
+		perror_n_exit(game, "Could not split map");
+	game->map.array_copy = ft_split(map_str, '\n');
+	if (game->map.array_copy == NULL)
 		perror_n_exit(game, "Could not split map");
 	free(map_str);
 	get_map_size(game);

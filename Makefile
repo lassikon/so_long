@@ -5,9 +5,19 @@ LIBMLX		:= MLX42
 LIBFT_DIR	:= libft
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include -I $(LIBFT)/include
-MLX42	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+# MLX42	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+MLX42	:= $(LIBMLX)/build/libmlx42.a -Iinclude -lglfw -L"/Users/lkonttin/.brew/opt/glfw/lib/"
 LIBFT	:= $(LIBFT_DIR)/libft.a
-SRCS	:= $(shell find -iname "*.c")
+SRCS	:= 	so_long.c \
+			get_map.c \
+			free_n_error.c \
+			loop.c \
+			moves.c \
+			open_window.c \
+			validate_map.c \
+			collisions.c \
+			check_path.c
+			
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx libft $(NAME)
@@ -22,7 +32,7 @@ libft:
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(MLX42) $(LIBFT) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBFT) $(MLX42) $(HEADERS) -o $(NAME)
 
 clean:
 	@make -C $(LIBFT_DIR) clean
