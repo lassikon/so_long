@@ -16,7 +16,11 @@ SRCS	:= 	so_long.c \
 			open_window.c \
 			validate_map.c \
 			collisions.c \
-			check_path.c
+			check_path.c \
+			load_textures.c \
+			textures_to_images.c \
+			move_images.c \
+			animate_player.c
 			
 OBJS	:= ${SRCS:.c=.o}
 
