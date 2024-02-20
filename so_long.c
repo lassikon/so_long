@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:51:04 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/19 17:50:46 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:49:35 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ static void	init_player_array(t_game *game)
 	i = 0;
 	while (i < PLAYER_FRAMES)
 	{
-		game->textures.playdown_tex[i] = NULL;
-		game->images.player_down[i] = NULL;
-		game->textures.playup_tex[i] = NULL;
-		game->images.player_up[i] = NULL;
-		game->textures.playleft_tex[i] = NULL;
-		game->images.player_left[i] = NULL;
-		game->textures.playright_tex[i] = NULL;
-		game->images.player_right[i] = NULL;
+		game->tex.down[i] = NULL;
+		game->img.pl_d[i] = NULL;
+		game->tex.up[i] = NULL;
+		game->img.pl_u[i] = NULL;
+		game->tex.left[i] = NULL;
+		game->img.pl_l[i] = NULL;
+		game->tex.righ[i] = NULL;
+		game->img.pl_r[i] = NULL;
 		i++;
 	}
 }
 
 static void	init_struct(t_game *game)
 {
-	game->map.array = NULL;
+	game->map.arr = NULL;
 	game->map.array_copy = NULL;
 	game->map.width = 0;
 	game->map.height = 0;
@@ -42,18 +42,21 @@ static void	init_struct(t_game *game)
 	game->map.player = 0;
 	game->map.exit = 0;
 	game->mlx = NULL;
-	game->textures.wall_tex = NULL;
-	game->textures.floor_tex = NULL;
-	game->textures.exit_tex = NULL;
-	game->textures.coll_tex = NULL;
-	game->images.wall = NULL;
-	game->images.floor = NULL;
-	game->images.exit = NULL;
-	game->images.coll = NULL;
+	game->tex.wall = NULL;
+	game->tex.floor = NULL;
+	game->tex.exit = NULL;
+	game->tex.coll = NULL;
+	game->img.wall = NULL;
+	game->img.floor = NULL;
+	game->img.exit = NULL;
+	game->img.open_exit = NULL;
+	game->img.coll = NULL;
+	game->img.moves = NULL;
 	game->colls = 0;
 	game->steps = 0;
 	game->player_x = 0;
 	game->player_y = 0;
+	game->prev_direction = 0;
 	init_player_array(game);
 }
 

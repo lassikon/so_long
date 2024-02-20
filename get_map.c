@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:44:49 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/16 16:47:59 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:40:55 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static char	*get_map_str(t_game *game, char *file)
 
 	game->map.fd = open(file, O_RDONLY);
 	if (game->map.fd < 0)
-		perror_n_exit(game, "Could not open map file");
+		error_n_exit(game, "Could not open map file");
 	map_str = get_next_line(game->map.fd);
 	if (map_str == NULL)
-		perror_n_exit(game, "Could not read map");
+		error_n_exit(game, "Could not read map");
 	while (42)
 	{
 		line = get_next_line(game->map.fd);
@@ -59,7 +59,7 @@ static char	*get_map_str(t_game *game, char *file)
 			break ;
 		map_str = sl_strjoin(map_str, line);
 		if (map_str == NULL)
-			perror_n_exit(game, "Could not join map lines");
+			error_n_exit(game, "Could not join map lines");
 	}
 	close(game->map.fd);
 	game->map.fd = -1;
@@ -72,10 +72,10 @@ static void	get_map_size(t_game *game)
 	int	y;
 
 	y = 0;
-	while (game->map.array[y] != NULL)
+	while (game->map.arr[y] != NULL)
 	{
 		x = 0;
-		while (game->map.array[y][x] != '\0')
+		while (game->map.arr[y][x] != '\0')
 			x++;
 		if (game->map.width == 0)
 			game->map.width = x;
@@ -93,12 +93,12 @@ void	get_map(t_game *game, char *file)
 	char	*map_str;
 
 	map_str = get_map_str(game, file);
-	game->map.array = ft_split(map_str, '\n');
-	if (game->map.array == NULL)
-		perror_n_exit(game, "Could not split map");
+	game->map.arr = ft_split(map_str, '\n');
+	if (game->map.arr == NULL)
+		error_n_exit(game, "Could not split map");
 	game->map.array_copy = ft_split(map_str, '\n');
 	if (game->map.array_copy == NULL)
-		perror_n_exit(game, "Could not split map");
+		error_n_exit(game, "Could not split map");
 	free(map_str);
 	get_map_size(game);
 	validate_map(game);

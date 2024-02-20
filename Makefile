@@ -1,12 +1,12 @@
 NAME		:= so_long
 CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror
-LIBMLX		:= MLX42
-LIBFT_DIR	:= libft
+MLXFLAGS	:= -Iinclude -lglfw -L"/Users/lkonttin/.brew/opt/glfw/lib/"
+MLX_DIR		:= ./MLX42
+LIBFT_DIR	:= ./libft
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include -I $(LIBFT)/include
-# MLX42	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-MLX42	:= $(LIBMLX)/build/libmlx42.a -Iinclude -lglfw -L"/Users/lkonttin/.brew/opt/glfw/lib/"
+HEADERS	:= -I ./include -I $(MLX_DIR)/include -I $(LIBFT)/include
+MLX42	:= $(MLX_DIR)/build/libmlx42.a
 LIBFT	:= $(LIBFT_DIR)/libft.a
 SRCS	:= 	so_long.c \
 			get_map.c \
@@ -24,24 +24,24 @@ SRCS	:= 	so_long.c \
 			
 OBJS	:= ${SRCS:.c=.o}
 
-all: libmlx libft $(NAME)
+all: $(NAME)
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+$(MLX42):
+	@cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
 
-libft:
+$(LIBFT):
 	@make -C $(LIBFT_DIR)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBFT) $(MLX42) $(HEADERS) -o $(NAME)
+$(NAME): $(LIBFT) $(OBJS) $(MLX42)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX42) $(MLXFLAGS) $(HEADERS) -o $(NAME)
 
 clean:
 	@make -C $(LIBFT_DIR) clean
 	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	@rm -rf $(MLX_DIR)/build
 
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
@@ -49,4 +49,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re, libmlx, libft
+.PHONY: all clean fclean re

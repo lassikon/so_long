@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:58:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/16 17:31:49 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:51:59 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ static void	check_walls(t_game *game)
 	i = 0;
 	while (i < game->map.width)
 	{
-		if (game->map.array[0][i] != '1')
+		if (game->map.arr[0][i] != '1')
 			error_n_exit(game, "Map is not surrounded by walls");
-		if (game->map.array[game->map.height - 1][i] != '1')
+		if (game->map.arr[game->map.height - 1][i] != '1')
 			error_n_exit(game, "Map is not surrounded by walls");
 		i++;
 	}
 	i = 0;
 	while (i < game->map.height)
 	{
-		if (game->map.array[i][0] != '1')
+		if (game->map.arr[i][0] != '1')
 			error_n_exit(game, "Map is not surrounded by walls");
-		if (game->map.array[i][game->map.width - 1] != '1')
+		if (game->map.arr[i][game->map.width - 1] != '1')
 			error_n_exit(game, "Map is not surrounded by walls");
 		i++;
 	}
@@ -38,21 +38,21 @@ static void	check_walls(t_game *game)
 
 static void	check_chars(t_game *game, int i, int j)
 {
-	if (game->map.array[i][j] == '1' || game->map.array[i][j] == '0')
+	if (game->map.arr[i][j] == '1' || game->map.arr[i][j] == '0')
 		return ;
-	else if (game->map.array[i][j] == 'P')
+	else if (game->map.arr[i][j] == 'P')
 	{
 		game->map.player += 1;
-		game->player_x = j * TILE + OFFSET;
-		game->player_y = i * TILE + OFFSET;
+		game->player_x = j * TILE + D;
+		game->player_y = i * TILE + D;
 		return ;
 	}
-	else if (game->map.array[i][j] == 'C')
+	else if (game->map.arr[i][j] == 'C')
 	{
 		game->map.colls_at_start += 1;
 		return ;
 	}
-	else if (game->map.array[i][j] == 'E')
+	else if (game->map.arr[i][j] == 'E')
 	{
 		game->map.exit += 1;
 		return ;

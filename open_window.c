@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:17:15 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/19 16:41:09 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:51:49 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ static void	draw_background(t_game *game)
 	{
 		while (x < game->map.width)
 		{
-			if (game->map.array[y][x] != '1')
+			if (game->map.arr[y][x] != '1')
 			{
-				if (mlx_image_to_window(game->mlx, game->images.floor, x * TILE, y * TILE) == -1)
+				if (mlx_image_to_window(game->mlx, game->img.floor, \
+					x * TILE, y * TILE) == -1)
 					mlx42_error(game, mlx_strerror(mlx_errno));
 			}
 			x++;
@@ -42,59 +43,47 @@ static void	player_images_to_window(t_game *game, int x, int y)
 	i = 0;
 	while (i < PLAYER_FRAMES)
 	{
-		if (mlx_image_to_window(game->mlx, game->images.player_down[i], x * TILE, y * TILE) == -1)
+		if (mlx_image_to_window(game->mlx, game->img.pl_d[i], x, y) == -1)
 			mlx42_error(game, mlx_strerror(mlx_errno));
-		game->images.player_down[i]->instances[0].enabled = false;
+		game->img.pl_d[i]->instances[0].enabled = false;
+		if (mlx_image_to_window(game->mlx, game->img.pl_u[i], x, y) == -1)
+			mlx42_error(game, mlx_strerror(mlx_errno));
+		game->img.pl_u[i]->instances[0].enabled = false;
+		if (mlx_image_to_window(game->mlx, game->img.pl_l[i], x, y) == -1)
+			mlx42_error(game, mlx_strerror(mlx_errno));
+		game->img.pl_l[i]->instances[0].enabled = false;
+		if (mlx_image_to_window(game->mlx, game->img.pl_r[i], x, y) == -1)
+			mlx42_error(game, mlx_strerror(mlx_errno));
+		game->img.pl_r[i]->instances[0].enabled = false;
 		i++;
 	}
-	i = 0;
-	while (i < PLAYER_FRAMES)
-	{
-		if (mlx_image_to_window(game->mlx, game->images.player_up[i], x * TILE, y * TILE) == -1)
-			mlx42_error(game, mlx_strerror(mlx_errno));
-		game->images.player_up[i]->instances[0].enabled = false;
-		i++;
-	}
-	i = 0;
-	while (i < PLAYER_FRAMES)
-	{
-		if (mlx_image_to_window(game->mlx, game->images.player_left[i], x * TILE, y * TILE) == -1)
-			mlx42_error(game, mlx_strerror(mlx_errno));
-		game->images.player_left[i]->instances[0].enabled = false;
-		i++;
-	}
-	i = 0;
-	while (i < PLAYER_FRAMES)
-	{
-		if (mlx_image_to_window(game->mlx, game->images.player_right[i], x * TILE, y * TILE) == -1)
-			mlx42_error(game, mlx_strerror(mlx_errno));
-		game->images.player_right[i]->instances[0].enabled = false;
-		i++;
-	}
-	game->images.player_down[0]->instances[0].enabled = true;
+	game->img.pl_d[0]->instances[0].enabled = true;
 }
 
 static void	draw_tile(t_game *game, int x, int y)
 {
-	if (game->map.array[y][x] == '1')
+	if (game->map.arr[y / TILE][x / TILE] == '1')
 	{
-		if (mlx_image_to_window(game->mlx, game->images.wall, x * TILE, y * TILE) == -1)
+		if (mlx_image_to_window(game->mlx, game->img.wall, x, y) == -1)
 			mlx42_error(game, mlx_strerror(mlx_errno));
 	}
-	else if (game->map.array[y][x] == 'P')
+	else if (game->map.arr[y / TILE][x / TILE] == 'C')
 	{
+		if (mlx_image_to_window(game->mlx, game->img.coll, x + D, y + D) == -1)
+			mlx42_error(game, mlx_strerror(mlx_errno));
+	}
+	else if (game->map.arr[y / TILE][x / TILE] == 'E')
+	{
+		if (mlx_image_to_window(game->mlx, game->img.wall, x, y) == -1)
+			mlx42_error(game, mlx_strerror(mlx_errno));
+		if (mlx_image_to_window(game->mlx, game->img.open_exit, x, y) == -1)
+			mlx42_error(game, mlx_strerror(mlx_errno));
+		game->img.open_exit->instances[0].enabled = false;
+		if (mlx_image_to_window(game->mlx, game->img.exit, x, y) == -1)
+			mlx42_error(game, mlx_strerror(mlx_errno));
+	}
+	else if (game->map.arr[y / TILE][x / TILE] == 'P')
 		player_images_to_window(game, x, y);
-	}
-	else if (game->map.array[y][x] == 'C')
-	{
-		if (mlx_image_to_window(game->mlx, game->images.coll, x * TILE, y * TILE) == -1)
-			mlx42_error(game, mlx_strerror(mlx_errno));
-	}
-	else if (game->map.array[y][x] == 'E')
-	{
-		if (mlx_image_to_window(game->mlx, game->images.exit, x * TILE, y * TILE) == -1)
-			mlx42_error(game, mlx_strerror(mlx_errno));
-	}
 }
 
 static void	images_to_window(t_game *game)
@@ -109,7 +98,7 @@ static void	images_to_window(t_game *game)
 		x = 0;
 		while (x < game->map.width)
 		{
-			draw_tile(game, x, y);
+			draw_tile(game, x * TILE, y * TILE);
 			x++;
 		}
 		y++;
@@ -120,7 +109,7 @@ void	open_window(t_game *game)
 {
 	game->mlx = mlx_init(game->win_width, game->win_height, "so_long", true);
 	if (!game->mlx)
-		mlx42_error(game, mlx_strerror(mlx_errno));;
+		mlx42_error(game, mlx_strerror(mlx_errno));
 	load_textures(game);
 	textures_to_images(game);
 	images_to_window(game);

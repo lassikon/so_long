@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:51:22 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/19 18:01:43 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:47:19 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "fcntl.h"
 
 // perror
-# include "stdio.h"
+// # include "stdio.h"
 
 // libraries
 # include "libft/include/libft.h"
@@ -31,8 +31,9 @@
 
 # define WALL_IMG "textures/48_black_wall.png"
 # define FLOOR_IMG "textures/48_floor.png"
-# define COLL_IMG "textures/48_sheep.png"
+# define COLL_IMG "textures/burger.png"
 # define EXIT_IMG "textures/48_closed_exit.png"
+# define OPEN_EXIT_IMG "textures/48_open_exit.png"
 
 # define PLAYER_DOWN1 "textures/player/down1.png"
 # define PLAYER_DOWN2 "textures/player/down2.png"
@@ -52,16 +53,16 @@
 # define MOVE 4
 # define TILE 48
 # define PLAYER 32
-# define OFFSET 8
+# define D 8
 
-# define LEFT 0
-# define RIGHT 1
-# define UP 2
-# define DOWN 3
+# define LEFT 1
+# define RIGHT 2
+# define UP 3
+# define DOWN 4
 
 typedef struct s_map
 {
-	char		**array;
+	char		**arr;
 	char		**array_copy;
 	int			width;
 	int			height;
@@ -73,40 +74,44 @@ typedef struct s_map
 
 typedef struct s_textures
 {
-	mlx_texture_t		*wall_tex;
-	mlx_texture_t		*floor_tex;
-	mlx_texture_t		*playup_tex[3];
-	mlx_texture_t		*playdown_tex[3];
-	mlx_texture_t		*playleft_tex[3];
-	mlx_texture_t		*playright_tex[3];
-	mlx_texture_t		*coll_tex;
-	mlx_texture_t		*exit_tex;
+	mlx_texture_t		*wall;
+	mlx_texture_t		*floor;
+	mlx_texture_t		*up[3];
+	mlx_texture_t		*down[3];
+	mlx_texture_t		*left[3];
+	mlx_texture_t		*righ[3];
+	mlx_texture_t		*coll;
+	mlx_texture_t		*exit;
+	mlx_texture_t		*open_exit;
 }	t_textures;
 
 typedef struct s_images
 {
 	mlx_image_t		*wall;
 	mlx_image_t		*floor;
-	mlx_image_t		*player_up[3];
-	mlx_image_t		*player_down[3];
-	mlx_image_t		*player_left[3];
-	mlx_image_t		*player_right[3];
+	mlx_image_t		*pl_u[3];
+	mlx_image_t		*pl_d[3];
+	mlx_image_t		*pl_l[3];
+	mlx_image_t		*pl_r[3];
 	mlx_image_t		*exit;
+	mlx_image_t		*open_exit;
 	mlx_image_t		*coll;
+	mlx_image_t		*moves;
 }	t_images;
 
 typedef struct s_game
 {
 	t_map			map;
 	mlx_t			*mlx;
-	t_textures		textures;
-	t_images		images;
+	t_textures		tex;
+	t_images		img;
 	int				win_height;
 	int				win_width;
 	int				player_x;
 	int				player_y;
 	int				colls;
 	int				steps;
+	int				prev_direction;
 }	t_game;
 
 void	get_map(t_game *game, char *file);
@@ -126,9 +131,9 @@ bool	check_collision(t_game *game, int x, int y, int direction);
 void	check_collectible(t_game *game, int x, int y);
 void	check_exit(t_game *game, int x, int y);
 void	check_path(t_game *game);
+void	print_moves(t_game *game);
 void	free_memory(t_game *game);
 void	error_n_exit(t_game *game, char *error_msg);
-void	perror_n_exit(t_game *game, char *error_msg);
 void	mlx42_error(t_game *game, const char *error_msg);
 
 #endif

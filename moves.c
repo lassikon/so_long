@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:28:12 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/19 18:02:06 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:51:39 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	disable_player_frames(t_game *game)
 	i = 0;
 	while (i < PLAYER_FRAMES)
 	{
-		game->images.player_down[i]->instances[0].enabled = false;
-		game->images.player_up[i]->instances[0].enabled = false;
-		game->images.player_left[i]->instances[0].enabled = false;
-		game->images.player_right[i]->instances[0].enabled = false;
+		game->img.pl_d[i]->instances[0].enabled = false;
+		game->img.pl_u[i]->instances[0].enabled = false;
+		game->img.pl_l[i]->instances[0].enabled = false;
+		game->img.pl_r[i]->instances[0].enabled = false;
 		i++;
 	}
 }
@@ -37,7 +37,7 @@ void	move_left(t_game *game)
 	game->steps += 1;
 	check_collectible(game, game->player_x, game->player_y);
 	check_exit(game, game->player_x, game->player_y);
-	printf("Moves: %d\n", game->steps);
+	print_moves(game);
 }
 
 void	move_right(t_game *game)
@@ -50,7 +50,7 @@ void	move_right(t_game *game)
 	game->steps += 1;
 	check_collectible(game, game->player_x, game->player_y);
 	check_exit(game, game->player_x, game->player_y);
-	printf("Moves: %d\n", game->steps);
+	print_moves(game);
 }
 
 void	move_up(t_game *game)
@@ -63,7 +63,7 @@ void	move_up(t_game *game)
 	game->steps += 1;
 	check_collectible(game, game->player_x, game->player_y);
 	check_exit(game, game->player_x, game->player_y);
-	printf("Moves: %d\n", game->steps);
+	print_moves(game);
 }
 
 void	move_down(t_game *game)
@@ -76,5 +76,5 @@ void	move_down(t_game *game)
 	game->steps += 1;
 	check_collectible(game, game->player_x, game->player_y);
 	check_exit(game, game->player_x, game->player_y);
-	printf("Moves: %d\n", game->steps);
+	print_moves(game);
 }
