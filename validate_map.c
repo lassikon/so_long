@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:58:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/20 16:51:59 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:02:00 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ static void	check_chars(t_game *game, int i, int j)
 	{
 		game->map.exit += 1;
 		return ;
+	}
+	else if (game->map.arr[i][j] == 'X')
+	{
+		if (game->monster == true)
+			error_n_exit(game, "Map has too many monsters");
+		game->monster = true;
+		game->mons_x = j * TILE + D;
+		game->mons_y = i * TILE + D;
 	}
 	else
 		error_n_exit(game, "Invalid character in map");

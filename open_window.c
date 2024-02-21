@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:17:15 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/20 16:51:49 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:53:07 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static void	draw_tile(t_game *game, int x, int y)
 	}
 	else if (game->map.arr[y / TILE][x / TILE] == 'P')
 		player_images_to_window(game, x, y);
+	else if (game->map.arr[y / TILE][x / TILE] == 'X')
+		add_monster(game, x, y);	
 }
 
 static void	images_to_window(t_game *game)
@@ -107,10 +109,14 @@ static void	images_to_window(t_game *game)
 
 void	open_window(t_game *game)
 {
+	int	center;
+
+	center = game->map.width * TILE / 2;
 	game->mlx = mlx_init(game->win_width, game->win_height, "so_long", true);
 	if (!game->mlx)
 		mlx42_error(game, mlx_strerror(mlx_errno));
 	load_textures(game);
 	textures_to_images(game);
 	images_to_window(game);
+	mlx_put_string(game->mlx, "Moves:", center - 48, 10);
 }

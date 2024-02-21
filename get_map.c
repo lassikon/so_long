@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:44:49 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/20 15:40:55 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:24:23 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ static char	*get_map_str(t_game *game, char *file)
 		if (map_str == NULL)
 			error_n_exit(game, "Could not join map lines");
 	}
+	if (ft_strnstr(map_str, "\n\n", ft_strlen(map_str)))
+		error_n_exit(game, "Map has empty lines");
+	if (map_str[ft_strlen(map_str) - 1] == '\n')
+		error_n_exit(game, "Map has empty lines");
 	close(game->map.fd);
 	game->map.fd = -1;
 	return (map_str);

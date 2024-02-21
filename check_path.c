@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 15:26:53 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/16 15:52:18 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:03:14 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	fill(char **array, int x, int y)
 {
 	if (array[y][x] != '0' && array[y][x] != 'C' && array[y][x] != 'E')
 		return ;
-	array[y][x] = 'X';
+	array[y][x] = 'V';
 	fill(array, x - 1, y);
 	fill(array, x + 1, y);
 	fill(array, x, y - 1);

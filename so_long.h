@@ -6,14 +6,14 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:51:22 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/20 16:47:19 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:24:00 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-// malloc, free
+// malloc, free, rand
 # include "stdlib.h"
 
 // read, write
@@ -22,16 +22,13 @@
 // open, close
 # include "fcntl.h"
 
-// perror
-// # include "stdio.h"
-
 // libraries
 # include "libft/include/libft.h"
 # include "MLX42/include/MLX42/MLX42.h"
 
 # define WALL_IMG "textures/48_black_wall.png"
-# define FLOOR_IMG "textures/48_floor.png"
-# define COLL_IMG "textures/burger.png"
+# define FLOOR_IMG "textures/48_purple_floor.png"
+# define COLL_IMG "textures/32_chest.png"
 # define EXIT_IMG "textures/48_closed_exit.png"
 # define OPEN_EXIT_IMG "textures/48_open_exit.png"
 
@@ -50,9 +47,21 @@
 # define PLAYER_FRAMES 3
 # define PLAYER_ANIMATION_SPEED 8
 
+# define MONSTER1 "textures/monster/1.png"
+# define MONSTER2 "textures/monster/2.png"
+# define MONSTER3 "textures/monster/3.png"
+# define MONSTER4 "textures/monster/4.png"
+# define MONSTER5 "textures/monster/5.png"
+# define MONSTER6 "textures/monster/6.png"
+# define MONSTER7 "textures/monster/7.png"
+# define MONSTER8 "textures/monster/8.png"
+# define MONSTER_FRAMES 8
+# define MONSTER_ANIMATION_SPEED 6
+
 # define MOVE 4
 # define TILE 48
 # define PLAYER 32
+# define MONSTER 32
 # define D 8
 
 # define LEFT 1
@@ -80,6 +89,7 @@ typedef struct s_textures
 	mlx_texture_t		*down[3];
 	mlx_texture_t		*left[3];
 	mlx_texture_t		*righ[3];
+	mlx_texture_t		*mons[8];
 	mlx_texture_t		*coll;
 	mlx_texture_t		*exit;
 	mlx_texture_t		*open_exit;
@@ -93,6 +103,7 @@ typedef struct s_images
 	mlx_image_t		*pl_d[3];
 	mlx_image_t		*pl_l[3];
 	mlx_image_t		*pl_r[3];
+	mlx_image_t		*mons[8];
 	mlx_image_t		*exit;
 	mlx_image_t		*open_exit;
 	mlx_image_t		*coll;
@@ -109,6 +120,12 @@ typedef struct s_game
 	int				win_width;
 	int				player_x;
 	int				player_y;
+	int				mons_x;
+	int				mons_y;
+	bool			monster;
+	bool			eaten_by_monster;
+	bool			exit_reached;
+	bool			over;
 	int				colls;
 	int				steps;
 	int				prev_direction;
@@ -135,5 +152,9 @@ void	print_moves(t_game *game);
 void	free_memory(t_game *game);
 void	error_n_exit(t_game *game, char *error_msg);
 void	mlx42_error(t_game *game, const char *error_msg);
+void	add_monster(t_game *game, int x, int y);
+void	animate_monster(t_game *game);
+void	move_monster(t_game *game);
+void	check_monster_player_collision(t_game *game);
 
 #endif

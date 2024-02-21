@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 15:12:16 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/20 16:48:51 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:14:27 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@ bool	check_collision(t_game *game, int x, int y, int direction)
 			return (true);
 	}
 	return (false);
+}
+
+void	check_monster_player_collision(t_game *game)
+{
+	if (game->img.mons[0]->instances[0].x > game->player_x - (PLAYER - D)
+		&& game->img.mons[0]->instances[0].x < game->player_x + (PLAYER - D)
+		&& game->img.mons[0]->instances[0].y > game->player_y - (PLAYER - D)
+		&& game->img.mons[0]->instances[0].y < game->player_y + (PLAYER - D))
+	{
+		game->eaten_by_monster = true;
+		game->over = true;
+	}
 }
 
 void	check_collectible(t_game *game, int x, int y)

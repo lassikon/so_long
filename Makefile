@@ -20,7 +20,9 @@ SRCS	:= 	so_long.c \
 			load_textures.c \
 			textures_to_images.c \
 			move_images.c \
-			animate_player.c
+			animate_player.c \
+			monster_tex_n_img.c \
+			monster_movement.c \
 			
 OBJS	:= ${SRCS:.c=.o}
 

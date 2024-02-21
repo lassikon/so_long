@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:28:12 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/20 16:51:39 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:15:13 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	disable_player_frames(t_game *game)
 
 void	move_left(t_game *game)
 {
+	int	x;
+	int	y;
+
 	animate_player(game, LEFT);
 	if (check_collision(game, game->player_x - MOVE, game->player_y, LEFT))
 		return ;
@@ -36,12 +39,21 @@ void	move_left(t_game *game)
 	move_player_images(game, LEFT);
 	game->steps += 1;
 	check_collectible(game, game->player_x, game->player_y);
-	check_exit(game, game->player_x, game->player_y);
+	x = game->player_x / TILE;
+	y = game->player_y / TILE;
+	if (game->map.arr[y][x] == 'E' && game->colls == 0)
+	{
+		game->exit_reached = true;
+		game->over = true;
+	}
 	print_moves(game);
 }
 
 void	move_right(t_game *game)
 {
+	int	x;
+	int	y;
+
 	animate_player(game, RIGHT);
 	if (check_collision(game, game->player_x + PLAYER, game->player_y, RIGHT))
 		return ;
@@ -49,12 +61,21 @@ void	move_right(t_game *game)
 	move_player_images(game, RIGHT);
 	game->steps += 1;
 	check_collectible(game, game->player_x, game->player_y);
-	check_exit(game, game->player_x, game->player_y);
+	x = game->player_x / TILE;
+	y = game->player_y / TILE;
+	if (game->map.arr[y][x] == 'E' && game->colls == 0)
+	{
+		game->exit_reached = true;
+		game->over = true;
+	}
 	print_moves(game);
 }
 
 void	move_up(t_game *game)
 {
+	int	x;
+	int	y;
+
 	animate_player(game, UP);
 	if (check_collision(game, game->player_x, game->player_y - MOVE, UP))
 		return ;
@@ -62,12 +83,21 @@ void	move_up(t_game *game)
 	move_player_images(game, UP);
 	game->steps += 1;
 	check_collectible(game, game->player_x, game->player_y);
-	check_exit(game, game->player_x, game->player_y);
+	x = game->player_x / TILE;
+	y = game->player_y / TILE;
+	if (game->map.arr[y][x] == 'E' && game->colls == 0)
+	{
+		game->exit_reached = true;
+		game->over = true;
+	}
 	print_moves(game);
 }
 
 void	move_down(t_game *game)
 {
+	int	x;
+	int	y;
+
 	animate_player(game, DOWN);
 	if (check_collision(game, game->player_x, game->player_y + PLAYER, DOWN))
 		return ;
@@ -75,6 +105,12 @@ void	move_down(t_game *game)
 	move_player_images(game, DOWN);
 	game->steps += 1;
 	check_collectible(game, game->player_x, game->player_y);
-	check_exit(game, game->player_x, game->player_y);
+	x = game->player_x / TILE;
+	y = game->player_y / TILE;
+	if (game->map.arr[y][x] == 'E' && game->colls == 0)
+	{
+		game->exit_reached = true;
+		game->over = true;
+	}
 	print_moves(game);
 }
