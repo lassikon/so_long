@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:17:15 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/21 16:53:07 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:57:08 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,16 @@ static void	draw_tile(t_game *game, int x, int y)
 	{
 		if (mlx_image_to_window(game->mlx, game->img.wall, x, y) == -1)
 			mlx42_error(game, mlx_strerror(mlx_errno));
+		if (mlx_image_to_window(game->mlx, game->img.exit, x, y) == -1)
+			mlx42_error(game, mlx_strerror(mlx_errno));
 		if (mlx_image_to_window(game->mlx, game->img.open_exit, x, y) == -1)
 			mlx42_error(game, mlx_strerror(mlx_errno));
 		game->img.open_exit->instances[0].enabled = false;
-		if (mlx_image_to_window(game->mlx, game->img.exit, x, y) == -1)
-			mlx42_error(game, mlx_strerror(mlx_errno));
 	}
 	else if (game->map.arr[y / TILE][x / TILE] == 'P')
 		player_images_to_window(game, x, y);
 	else if (game->map.arr[y / TILE][x / TILE] == 'X')
-		add_monster(game, x, y);	
+		add_monster(game, x, y);
 }
 
 static void	images_to_window(t_game *game)

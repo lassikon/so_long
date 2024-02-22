@@ -6,13 +6,13 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 15:12:16 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/21 15:14:27 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:29:00 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-bool	check_collision(t_game *game, int x, int y, int direction)
+bool	wall_collision(t_game *game, int x, int y, int direction)
 {
 	if (direction == LEFT)
 	{
@@ -41,19 +41,43 @@ bool	check_collision(t_game *game, int x, int y, int direction)
 	return (false);
 }
 
-void	check_monster_player_collision(t_game *game)
+bool	monster_wall_collision(t_game *game, int direction)
+{
+	if (direction == LEFT)
+	{
+		if (wall_collision(game, game->mons_x - MOVE, game->mons_y, LEFT))
+			return (true);
+	}
+	else if (direction == RIGHT)
+	{
+		if (wall_collision(game, game->mons_x + MONSTER, game->mons_y, RIGHT))
+			return (true);
+	}
+	else if (direction == UP)
+	{
+		if (wall_collision(game, game->mons_x, game->mons_y - MOVE, UP))
+			return (true);
+	}
+	else if (direction == DOWN)
+	{
+		if (wall_collision(game, game->mons_x, game->mons_y + MONSTER, DOWN))
+			return (true);
+	}
+	return (false);
+}
+
+void	monster_player_collision(t_game *game)
 {
 	if (game->img.mons[0]->instances[0].x > game->player_x - (PLAYER - D)
 		&& game->img.mons[0]->instances[0].x < game->player_x + (PLAYER - D)
 		&& game->img.mons[0]->instances[0].y > game->player_y - (PLAYER - D)
 		&& game->img.mons[0]->instances[0].y < game->player_y + (PLAYER - D))
 	{
-		game->eaten_by_monster = true;
 		game->over = true;
 	}
 }
 
-void	check_collectible(t_game *game, int x, int y)
+void	collectible_collision(t_game *game, int x, int y)
 {
 	int	i;
 
@@ -79,7 +103,7 @@ void	check_collectible(t_game *game, int x, int y)
 	}
 }
 
-void	check_exit(t_game *game, int x, int y)
+void	exit_collision(t_game *game, int x, int y)
 {
 	if (game->map.arr[y / TILE][x / TILE] == 'E' && game->colls == 0)
 	{

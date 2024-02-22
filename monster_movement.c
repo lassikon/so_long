@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:38:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/21 15:17:15 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:28:18 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,31 +91,6 @@ static void	bounce_monster(t_game *game, int direction)
 		return ;
 }
 
-static bool	check_monster_wall_collision(t_game *game, int direction)
-{
-	if (direction == LEFT)
-	{
-		if (check_collision(game, game->mons_x - MOVE, game->mons_y, LEFT))
-			return (true);
-	}
-	else if (direction == RIGHT)
-	{
-		if (check_collision(game, game->mons_x + MONSTER, game->mons_y, RIGHT))
-			return (true);
-	}
-	else if (direction == UP)
-	{
-		if (check_collision(game, game->mons_x, game->mons_y - MOVE, UP))
-			return (true);
-	}
-	else if (direction == DOWN)
-	{
-		if (check_collision(game, game->mons_x, game->mons_y + MONSTER, DOWN))
-			return (true);
-	}
-	return (false);
-}
-
 void	move_monster(t_game *game)
 {
 	static int	direction = 0;
@@ -126,8 +101,8 @@ void	move_monster(t_game *game)
 		duration = rand() % (60 - 10 + 1) + 10;
 		direction = rand() % 5;
 	}
-	check_monster_player_collision(game);
-	if (check_monster_wall_collision(game, direction))
+	monster_player_collision(game);
+	if (monster_wall_collision(game, direction))
 	{
 		bounce_monster(game, direction);
 		direction = rand() % 4;

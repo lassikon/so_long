@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:51:22 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/21 17:24:00 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:29:48 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "MLX42/include/MLX42/MLX42.h"
 
 # define WALL_IMG "textures/48_black_wall.png"
-# define FLOOR_IMG "textures/48_purple_floor.png"
+# define FLOOR_IMG "textures/48_floor.png"
 # define COLL_IMG "textures/32_chest.png"
 # define EXIT_IMG "textures/48_closed_exit.png"
 # define OPEN_EXIT_IMG "textures/48_open_exit.png"
@@ -123,7 +123,6 @@ typedef struct s_game
 	int				mons_x;
 	int				mons_y;
 	bool			monster;
-	bool			eaten_by_monster;
 	bool			exit_reached;
 	bool			over;
 	int				colls;
@@ -132,6 +131,7 @@ typedef struct s_game
 }	t_game;
 
 void	get_map(t_game *game, char *file);
+void	init_struct(t_game *game);
 void	validate_map(t_game *game);
 void	open_window(t_game *game);
 void	load_textures(t_game *game);
@@ -144,9 +144,10 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	move_up(t_game *game);
 void	move_down(t_game *game);
-bool	check_collision(t_game *game, int x, int y, int direction);
-void	check_collectible(t_game *game, int x, int y);
-void	check_exit(t_game *game, int x, int y);
+bool	wall_collision(t_game *game, int x, int y, int direction);
+bool	monster_wall_collision(t_game *game, int direction);
+void	collectible_collision(t_game *game, int x, int y);
+void	exit_collision(t_game *game, int x, int y);
 void	check_path(t_game *game);
 void	print_moves(t_game *game);
 void	free_memory(t_game *game);
@@ -155,6 +156,6 @@ void	mlx42_error(t_game *game, const char *error_msg);
 void	add_monster(t_game *game, int x, int y);
 void	animate_monster(t_game *game);
 void	move_monster(t_game *game);
-void	check_monster_player_collision(t_game *game);
+void	monster_player_collision(t_game *game);
 
 #endif

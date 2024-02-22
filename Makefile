@@ -23,6 +23,7 @@ SRCS	:= 	so_long.c \
 			animate_player.c \
 			monster_tex_n_img.c \
 			monster_movement.c \
+			init_struct.c \
 			
 OBJS	:= ${SRCS:.c=.o}
 
