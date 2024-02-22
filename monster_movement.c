@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:38:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/22 14:28:18 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:18:50 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	move_monster(t_game *game)
 	if (monster_wall_collision(game, direction))
 	{
 		bounce_monster(game, direction);
-		direction = rand() % 4;
+		direction = rand() % 5;
 		return ;
 	}
 	move_monster_images(game, direction);
