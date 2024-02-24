@@ -10,7 +10,8 @@ MLX42	:= $(MLX_DIR)/build/libmlx42.a
 LIBFT	:= $(LIBFT_DIR)/libft.a
 SRCS	:= 	so_long.c \
 			get_map.c \
-			free_n_error.c \
+			error.c \
+			free_memory.c \
 			loop.c \
 			moves.c \
 			open_window.c \

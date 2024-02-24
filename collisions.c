@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 15:12:16 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/22 14:29:00 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/24 11:03:57 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	exit_collision(t_game *game, int x, int y)
 	{
 		ft_putstr_fd("You won!\n", 1);
 		mlx_terminate(game->mlx);
-		free_memory(game);
+		free_array(game);
 		exit(0);
 	}
 }

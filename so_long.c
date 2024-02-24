@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:51:04 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/22 12:19:00 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/24 10:47:37 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(game.mlx, keyhook, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
-	free_memory(&game);
+	free_array(&game);
 	return (0);
 }

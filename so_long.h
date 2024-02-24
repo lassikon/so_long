@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:51:22 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/02/22 14:29:48 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/02/24 10:47:28 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,8 @@ void	collectible_collision(t_game *game, int x, int y);
 void	exit_collision(t_game *game, int x, int y);
 void	check_path(t_game *game);
 void	print_moves(t_game *game);
-void	free_memory(t_game *game);
+void	free_array(t_game *game);
+void	free_textures(t_game *game);
 void	error_n_exit(t_game *game, char *error_msg);
 void	mlx42_error(t_game *game, const char *error_msg);
 void	add_monster(t_game *game, int x, int y);
